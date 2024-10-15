@@ -1,7 +1,7 @@
 // Importing react-router-dom for routing
 import { Routes, Route } from "react-router-dom";
 // Importing pages and forms from the application
-import { Home } from "./_root/pages";
+import { AllUsers, CreatePost, EditPost, Explore, Home, PostDetails, Profile, Saved, UpdateProfile } from "./_root/pages";
 import SigninForm from "./_auth/forms/SigninForm";
 import SignupForm from "./_auth/forms/SignupForm";
 // Importing layout components for authentication and root
@@ -30,6 +30,38 @@ const App = () => {
 					<Route
 						index
 						element={<Home />}
+					/>
+					<Route
+						path="/explore"
+						element={<Explore />}
+					/>
+					<Route
+						path="/saved"
+						element={<Saved />}
+					/>
+					<Route
+						path="/all-users"
+						element={<AllUsers />}
+					/>
+					<Route
+						path="/create-post"
+						element={<CreatePost />}
+					/>
+					<Route
+						path="/update-post/:id"
+						element={<EditPost />}
+					/>
+					<Route
+						path="/posts/:id"
+						element={<PostDetails />}
+					/>
+					<Route
+						path="/profile/:id/*"
+						element={<Profile />}
+					/>
+					<Route
+						path="/update-profile/:id"
+						element={<UpdateProfile />}
 					/>
 				</Route>
 			</Routes>
