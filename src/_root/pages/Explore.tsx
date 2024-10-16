@@ -27,7 +27,7 @@ const Explore = () => {
 	// Fetch next page of posts when the user scrolls to the bottom and no search is active
 	useEffect(() => {
 		if (inView && !searchValue) fetchNextPage();
-	}, [inView, searchValue]);
+	}, [inView, searchValue, fetchNextPage]);
 
 	// Render a loader if posts data is not available yet
 	if (!posts) {
