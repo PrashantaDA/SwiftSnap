@@ -1,41 +1,46 @@
-// React Hook Form imports
+// React Hook Form imports for managing form state and validation
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod"; // Zod for defining validation schema
+import { zodResolver } from "@hookform/resolvers/zod"; // Integrates Zod validation with React Hook Form
 
-// UI Component imports
+// UI Component imports for form controls, buttons, and layout
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-// Custom Hook imports
+// Custom Hook imports for displaying toast notifications
 import { useToast } from "@/hooks/use-toast";
 
-// Validation imports
+// Validation schema for signup form
 import { SignupValidation } from "@/lib/validation";
 
-// Shared Component imports
+// Shared Loader component for displaying loading states
 import Loader from "@/components/shared/Loader";
 
-// Routing imports
+// Routing imports for navigation and linking to other pages
 import { Link, useNavigate } from "react-router-dom";
 
-// Appwrite API imports
+// Appwrite API imports for account creation and sign-in
 import { useCreateUserAccount, useSignInAccount } from "@/lib/react-query/queriesAndMutations";
-import { useUserContext } from "@/context/AuthContext";
+import { useUserContext } from "@/context/AuthContext"; // Context for user authentication
 
 const SignupForm = () => {
+	// Initialize toast notifications and navigation
 	const { toast } = useToast();
 	const navigate = useNavigate();
+
+	// Extracting necessary functions and state from user context
 	const { checkAuthUser } = useUserContext();
 
+	// Create new user account and handle loading state
 	const { mutateAsync: createUserAccount, isPending: isCreatingAccount } = useCreateUserAccount();
 
+	// Handle user sign-in and loading state
 	const { mutateAsync: signInAccount, isPending: isSigningIn } = useSignInAccount();
 
-	// 1. Define your form.
+	// 1. Define the form using Zod for validation and default values for the form fields
 	const form = useForm<z.infer<typeof SignupValidation>>({
-		resolver: zodResolver(SignupValidation),
+		resolver: zodResolver(SignupValidation), // Use Zod to validate the form
 		defaultValues: {
 			name: "",
 			username: "",
@@ -44,9 +49,9 @@ const SignupForm = () => {
 		},
 	});
 
-	// 2. Define a submit handler.
+	// 2. Define a submit handler for the form
 	async function onSubmit(values: z.infer<typeof SignupValidation>) {
-		// Create the user
+		// Attempt to create a new user account
 		const newUser = await createUserAccount(values);
 		if (!newUser) {
 			return toast({
@@ -55,6 +60,7 @@ const SignupForm = () => {
 			});
 		}
 
+		// Sign in the user after account creation
 		const session = await signInAccount({
 			email: values.email,
 			password: values.password,
@@ -65,11 +71,12 @@ const SignupForm = () => {
 				description: "Please try again.",
 			});
 		}
+
+		// Check if user is authenticated, then redirect or show error
 		const isLoggedIn = await checkAuthUser();
 		if (isLoggedIn) {
-			form.reset();
-
-			navigate("/");
+			form.reset(); // Reset the form after successful signup and login
+			navigate("/"); // Redirect to the home page
 		} else {
 			return toast({
 				title: "Sign up failed.",
@@ -81,17 +88,22 @@ const SignupForm = () => {
 	return (
 		<Form {...form}>
 			<div className="sm:w-420 flex-center flex-col">
+				{/* Logo */}
 				<img
 					src="/assets/images/logo.svg"
 					alt="logo"
 				/>
+
+				{/* Signup header */}
 				<h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">Create a new account</h2>
 				<p className="text-light-3 small-medium md:base-regular mt-2">To use SwiftSnap, please enter your details</p>
 
+				{/* Signup form */}
 				<form
 					onSubmit={form.handleSubmit(onSubmit)}
 					className="flex flex-col gap-5 w-full mt-4"
 				>
+					{/* Name field */}
 					<FormField
 						control={form.control}
 						name="name"
@@ -109,6 +121,8 @@ const SignupForm = () => {
 							</FormItem>
 						)}
 					/>
+
+					{/* Username field */}
 					<FormField
 						control={form.control}
 						name="username"
@@ -126,6 +140,8 @@ const SignupForm = () => {
 							</FormItem>
 						)}
 					/>
+
+					{/* Email field */}
 					<FormField
 						control={form.control}
 						name="email"
@@ -143,6 +159,8 @@ const SignupForm = () => {
 							</FormItem>
 						)}
 					/>
+
+					{/* Password field */}
 					<FormField
 						control={form.control}
 						name="password"
@@ -160,6 +178,8 @@ const SignupForm = () => {
 							</FormItem>
 						)}
 					/>
+
+					{/* Submit button with loading state */}
 					<Button
 						type="submit"
 						className="shad-button_primary"
@@ -174,6 +194,8 @@ const SignupForm = () => {
 							"Sign Up"
 						)}
 					</Button>
+
+					{/* Link to sign-in page */}
 					<p className="text-small-regular text-light-2 text-center mt-2">
 						Already have an account?
 						<Link
@@ -188,4 +210,5 @@ const SignupForm = () => {
 		</Form>
 	);
 };
+
 export default SignupForm;
