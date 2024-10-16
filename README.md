@@ -33,7 +33,7 @@ Navigate to the project directory:
   cd swiftsnap
 
 ## Install dependencies:
-  npm install
+  npm install <br />
   Set up your Appwrite backend by following the Appwrite documentation and configuring your environment variables in .env.
 
 ## Start the development server:
