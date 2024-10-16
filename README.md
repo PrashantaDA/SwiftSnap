@@ -1,13 +1,13 @@
-## Swiftsnap
+# Swiftsnap
 Swiftsnap is a social media platform inspired by Instagram, built using modern web technologies. Users can share photos, like posts, and explore content from other users.
 
-## Live Demo
+# Live Demo
 Check out the live demo here: [View Here ](https://swiftsnap.netlify.app/)
 
-## Features
-# User Authentication: Secure signup and login with Appwrite backend.
-# Image Upload & Display: Users can upload images, which are stored and displayed in a feed.
-# Post Likes: Users can like posts and view like counts.
+# Features
+## User Authentication: Secure signup and login with Appwrite backend.
+## Image Upload & Display: Users can upload images, which are stored and displayed in a feed.
+### Post Likes: Users can like posts and view like counts.
 # Explore Feed: See a variety of posts from different users.
 # Responsive Design: Fully responsive UI that works on mobile, tablet, and desktop devices.
 # Optimized Performance: Powered by Vite for lightning-fast performance.
