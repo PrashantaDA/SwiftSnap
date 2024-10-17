@@ -16,9 +16,9 @@ const PostDetails = () => {
 	const { user } = useUserContext(); // Access the current user context
 
 	// Fetch the post by ID
-	const { data: post, isLoading } = useGetPostById(id);
+	const { data: post, isPending } = useGetPostById(id);
 	// Fetch posts created by the post's creator
-	const { data: userPosts, isLoading: isUserPostLoading } = useGetUserPosts(post?.creator.$id);
+	const { data: userPosts, isPending: isUserPostLoading } = useGetUserPosts(post?.creator.$id);
 	// Hook to delete a post
 	const { mutate: deletePost } = useDeletePost();
 
@@ -27,7 +27,7 @@ const PostDetails = () => {
 
 	// Function to handle post deletion
 	const handleDeletePost = () => {
-		deletePost({ postId: id, imageId: post?.imageId }); // Call delete function with post ID and image ID
+		deletePost({ postId: id || "", imageId: post?.imageId }); // Call delete function with post ID and image ID
 		navigate(-1); // Navigate back to the previous page
 	};
 
@@ -51,7 +51,7 @@ const PostDetails = () => {
 			</div>
 
 			{/* Show loader while the post is loading */}
-			{isLoading || !post ? (
+			{isPending || !post ? (
 				<Loader />
 			) : (
 				<div className="post_details-card">
@@ -99,15 +99,15 @@ const PostDetails = () => {
 
 								{/* Delete post button, shown only to the post creator */}
 								<Button
-									onClick={handleDeletePost} // Handle post deletion
+									onClick={handleDeletePost}
 									variant="ghost"
-									className={`post_details-delete_btn ${user.id !== post?.creator.$id && "hidden"}`} // Hide if the user is not the creator
+									className={`${user.id !== post?.creator.$id && "hidden"}`}
 								>
 									<img
-										src={"/assets/icons/delete.svg"}
+										src="/assets/icons/delete.svg"
 										alt="delete"
-										width={24}
-										height={24}
+										width={30}
+										height={30}
 									/>
 								</Button>
 							</div>
