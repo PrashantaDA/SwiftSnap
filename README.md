@@ -1,50 +1,40 @@
-# React + TypeScript + Vite
+# Swiftsnap
+Swiftsnap is a social media platform inspired by Instagram, built using modern web technologies. Users can share photos, like posts, and explore content from other users.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Live Demo
+Check out the live demo here: [View Here ](https://swiftsnap.netlify.app/)
 
-Currently, two official plugins are available:
+# Features
+User Authentication: Secure signup and login with Appwrite backend. <br />
+Image Upload & Display: Users can upload images, which are stored and displayed in a feed.<br />
+Post Likes: Users can like posts and view like counts.<br />
+Explore Feed: See a variety of posts from different users.<br />
+Responsive Design: Fully responsive UI that works on mobile, tablet, and desktop devices.<br />
+Optimized Performance: Powered by Vite for lightning-fast performance.<br />
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Tech Stack
+Vite: Fast development environment for building modern web applications.<br />
+React: Component-based UI library for building the user interface.<br />
+TypeScript: Provides static typing for JavaScript, improving code reliability and maintainability.<br />
+Tailwind CSS: Utility-first CSS framework for building modern, responsive designs.<br />
+Tanstack Query: Powerful data-fetching and caching solution.<br />
+Appwrite: Backend-as-a-Service (BaaS) providing authentication, database, and storage.<br />
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+# Installation
+To run Swiftsnap locally, follow these steps:
 
-- Configure the top-level `parserOptions` property like this:
+## Clone the repository:
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+  git clone https://github.com/PrashantaDA/swiftsnap.git
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Navigate to the project directory:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+  cd swiftsnap
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## Install dependencies:
+  npm install <br />
+  Set up your Appwrite backend by following the Appwrite documentation and configuring your environment variables in .env.
+
+## Start the development server:
+  npm run dev
